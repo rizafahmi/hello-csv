@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha -w --reporter spec"
   },
   "author": "",
   "license": "ISC",
@@ -15,5 +15,9 @@
     "debug": "^2.2.0",
     "lodash": "^4.4.0",
     "mock-aws-s3": "^2.1.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
   }
 }
