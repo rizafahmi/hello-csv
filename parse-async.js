@@ -17,7 +17,6 @@ function naive() {
 
       async.forEach(parsed, function (line) {
 
-
         line.push(line[0] + ' ' + line[1]);
 
         debug(`sending data : ${line}`);
