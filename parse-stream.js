@@ -40,4 +40,5 @@ rl.on('line', function (line) {
 
 rl.on('close', function () {
   console.log('Finished.');
+  rl.close();
 });
