@@ -1,6 +1,5 @@
 'use strict';
 
-
 /* UNIT TESTING */
 /* run `npm test` in your terminal */
 
