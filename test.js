@@ -9,7 +9,6 @@ var helper = require('./helper');
 var chai = require('chai');
 var expect = chai.expect;
 
-
 function check(done, f) {
     try {
         f();
@@ -53,4 +52,24 @@ describe('sendSms', function () {
         }, 600);
 
     });
+});
+
+describe('logToS3', function () {
+    it('should run S3 emulator to send log data', function (done) {
+        setTimeout(function () {
+            let data = {
+                data: 'Some dummy data to log to S3',
+            };
+
+            helper.logToS3(data, function (err, sendingStatus) {
+                check(done, function () {
+                    expect(sendingStatus.logged).to.be.true;
+                });
+
+                if (err) throw err;
+            });
+        }, 600);
+
+    });
+
 });
