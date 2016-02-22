@@ -37,19 +37,19 @@ describe('sendSms', function () {
     it('should send dummy sms contains data that parsed from CSV file', function (done) {
 
         // oh gosh, how to test asnychronous code?
-        setTimeout( function () {
-          let data = {
-              data: 'Some dummy data',
-          };
+        setTimeout(function () {
+            let data = {
+                data: 'Some dummy data',
+            };
 
-          helper.sendSms(data, function (err, sendingStatus) {
-              check(done, function () {
-                expect(sendingStatus.status).to.equal(200);
-                expect(sendingStatus.message).to.equal('OK');
-              });
-              if (err) throw err;
-              
-          });
+            helper.sendSms(data, function (err, sendingStatus) {
+                check(done, function () {
+                    expect(sendingStatus.status).to.equal(200);
+                    expect(sendingStatus.message).to.equal('OK');
+                });
+
+                if (err) throw err;
+            });
         }, 600);
 
     });
