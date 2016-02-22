@@ -9,6 +9,16 @@ var helper = require('./helper');
 var chai = require('chai');
 var expect = chai.expect;
 
+
+function check(done, f) {
+    try {
+        f();
+        done();
+    } catch (e) {
+        done(e);
+    }
+}
+
 describe('naive', function () {
     it('should be true', function () {
         expect(true).to.be.true;
@@ -24,12 +34,23 @@ describe('getFullName', function () {
 });
 
 describe('sendSms', function () {
-    it('should send dummy sms contains data that parsed from CSV file', function () {
+    it('should send dummy sms contains data that parsed from CSV file', function (done) {
 
         // oh gosh, how to test asnychronous code?
-        expect(true).to.be.true;
+        setTimeout( function () {
+          let data = {
+              data: 'Some dummy data',
+          };
 
-        // expect(helper.sendSms({}, cbfn)).to.be.true;
+          helper.sendSms(data, function (err, sendingStatus) {
+              check(done, function () {
+                expect(sendingStatus.status).to.equal(200);
+                expect(sendingStatus.message).to.equal('OK');
+              });
+              if (err) throw err;
+              
+          });
+        }, 600);
 
     });
 });
