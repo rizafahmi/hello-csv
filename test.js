@@ -4,10 +4,13 @@
 /* run `npm test` in your terminal */
 
 require('./parse-callback');
-var helper = require('./helper');
 
-var chai = require('chai');
-var expect = chai.expect;
+const chai = require('chai');
+const expect = chai.expect;
+
+const helper = require('./helper');
+const parse = require('csv-parse');
+const fs = require('fs');
 
 function check(done, f) {
     try {
@@ -70,6 +73,17 @@ describe('logToS3', function () {
             });
         }, 600);
 
+    });
+
+});
+
+describe('parse', function () {
+    it('should parse cvs file into JavaScript array', function () {
+        fs.readFile(__dirname + '/sample.csv', function thenParse(err, loadedCsv) {
+            parse(loadedCsv, function (err, parsed) {
+                expect(parsed).to.have.length(501);
+            });
+        });
     });
 
 });
