@@ -13,45 +13,45 @@ const helper = require('./helper');
 
 function naiveWithPromise() {
 
-  fs.readFileAsync(__dirname + '/sample.csv').then(function (loadedCsv) {
+    fs.readFileAsync(__dirname + '/sample.csv').then(function (loadedCsv) {
 
-    parse(loadedCsv, function transformEachLine(err, parsed) {
+        parse(loadedCsv, function transformEachLine(err, parsed) {
 
-      for (let index in parsed) {
+            for (let index in parsed) {
 
-        let line = parsed[index];
+                let line = parsed[index];
 
-        line.push(line[0] + ' ' + line[1]);
+                line.push(line[0] + ' ' + line[1]);
 
-        if (index > 0) {
-          debug(`sending data index: ${index - 1}`);
+                if (index > 0) {
+                    debug(`sending data index: ${index - 1}`);
 
-          helper.sendSms(line, function afterSending(err, sendingStatus) {
-            let lineToLog;
-            if (err) {
-              debug(err.message);
+                    helper.sendSms(line, function afterSending(err, sendingStatus) {
+                        let lineToLog;
+                        if (err) {
+                            debug(err.message);
 
-              lineToLog = {
-                sendingStatus,
-                line,
-              };
+                            lineToLog = {
+                                sendingStatus,
+                                line,
+                            };
 
-            }
+                        }
 
-            if (lineToLog) {
-              helper.logToS3(lineToLog, function afterLogging(err, loggingStatus) {
-                if (err) {
-                  debug(err.message);
+                        if (lineToLog) {
+                            helper.logToS3(lineToLog, function afterLogging(err, loggingStatus) {
+                                if (err) {
+                                    debug(err.message);
+                                }
+                            });
+                        }
+                    });
                 }
-              });
-            }
-          });
-        }
 
-        index++;
-      }
+                index++;
+            }
+        });
     });
-  });
 
 }
 
